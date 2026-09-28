@@ -17,7 +17,18 @@ describe("portfolio project records", () => {
   it("keeps JuaDuka truthfully marked as in progress", () => {
     const juaduka = projects.find((project) => project.slug === "juaduka-pos");
     expect(juaduka?.status).toBe("in-progress");
+    expect(juaduka?.repositoryUrl).toBeUndefined();
     expect(juaduka?.limitations.join(" ")).toMatch(/eight-hour soak/i);
     expect(juaduka?.limitations.join(" ")).toMatch(/Daraja/i);
+  });
+
+  it("publishes Nexa and Tamu only as verified frontend demonstrations", () => {
+    const nexa = projects.find((project) => project.slug === "nexa-mobile");
+    const tamu = projects.find((project) => project.slug === "tamu-kenya");
+
+    expect(nexa?.liveUrl).toBe("https://nexa-mobile-demo.vercel.app/");
+    expect(tamu?.liveUrl).toBe("https://tamu-kenya-demo.vercel.app/");
+    expect(nexa?.limitations.join(" ")).toMatch(/frontend demonstration/i);
+    expect(tamu?.limitations.join(" ")).toMatch(/frontend demonstration/i);
   });
 });

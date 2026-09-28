@@ -1,9 +1,10 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { profile } from "@/content/profile";
 import { ThemeToggle } from "./theme-toggle";
 
 const navigation = [
@@ -32,6 +33,9 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="nav-actions">
+          <a className="icon-button" href={profile.github} target="_blank" rel="noreferrer" aria-label="Open KeyNash on GitHub">
+            <Github aria-hidden="true" size={19} />
+          </a>
           <ThemeToggle />
           <button className="icon-button menu-button" type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
             {open ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}

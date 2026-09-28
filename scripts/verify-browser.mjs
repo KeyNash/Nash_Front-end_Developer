@@ -18,7 +18,7 @@ for (const width of widths) {
   page.on("pageerror", (error) => consoleErrors.push(error.message));
 
   for (const route of routes) {
-    const response = await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
+    const response = await page.goto(`${baseUrl}${route}`, { waitUntil: "domcontentloaded" });
     const result = await page.evaluate(() => ({
       title: document.title,
       textLength: document.body.innerText.trim().length,
@@ -32,20 +32,23 @@ for (const width of widths) {
   }
 
   if (width === 375) {
-    await page.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
     const menuButton = page.getByRole("button", { name: "Open menu" });
     if (!(await menuButton.isVisible())) failures.push({ width, route: "/", issue: "Mobile menu button missing" });
     await menuButton.click();
     if (!(await page.getByRole("link", { name: "Work", exact: true }).isVisible())) failures.push({ width, route: "/", issue: "Mobile navigation did not open" });
     await page.getByRole("button", { name: "Toggle color theme" }).click();
     if ((await page.locator("html").getAttribute("data-theme")) !== "dark") failures.push({ width, route: "/", issue: "Theme toggle did not set dark theme" });
+    for (const label of ["GitHub", "GitLab", "Linktree", "Instagram"]) {
+      if ((await page.locator(".developer-links").getByRole("link", { name: label, exact: true }).count()) !== 1) failures.push({ width, route: "/", issue: `${label} developer profile link missing` });
+    }
 
-    await page.goto(`${baseUrl}/work`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/work`, { waitUntil: "domcontentloaded" });
     await page.getByRole("link", { name: "Concept work", exact: true }).click();
     await page.waitForURL("**/work?type=Concept%20work");
     if ((await page.locator(".project-card").count()) !== 3) failures.push({ width, route: "/work?type=Concept%20work", issue: "Project filter count is not 3" });
 
-    await page.goto(`${baseUrl}/contact`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/contact`, { waitUntil: "domcontentloaded" });
     await page.getByLabel("Name").fill("Portfolio verifier");
     await page.getByLabel("Email").fill("verify@example.com");
     await page.getByLabel("What are you building?").fill("Verification project");
@@ -55,12 +58,18 @@ for (const width of widths) {
     const status = await page.getByRole("status").textContent();
     if (!status?.includes("Email is not configured yet")) failures.push({ width, route: "/contact", contactStatus: status });
 
-    await page.goto(`${baseUrl}/work/mahabu-media-services`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/work/mahabu-media-services`, { waitUntil: "domcontentloaded" });
     if (await page.getByRole("link", { name: "Visit live project" }).count()) failures.push({ width, route: "/work/mahabu-media-services", issue: "Stale deployment exposed" });
-    await page.goto(`${baseUrl}/work/koromosho-springs`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/work/koromosho-springs`, { waitUntil: "domcontentloaded" });
     if (await page.getByRole("link", { name: "Visit live project" }).count()) failures.push({ width, route: "/work/koromosho-springs", issue: "Stale deployment exposed" });
-    await page.goto(`${baseUrl}/work/mamu-atelier`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/work/juaduka-pos`, { waitUntil: "domcontentloaded" });
+    if (await page.getByRole("link", { name: "View repository" }).count()) failures.push({ width, route: "/work/juaduka-pos", issue: "Private repository exposed" });
+    await page.goto(`${baseUrl}/work/mamu-atelier`, { waitUntil: "domcontentloaded" });
     if ((await page.getByRole("link", { name: "Visit live project" }).count()) !== 1) failures.push({ width, route: "/work/mamu-atelier", issue: "Current live link missing" });
+    await page.goto(`${baseUrl}/work/nexa-mobile`, { waitUntil: "domcontentloaded" });
+    if ((await page.getByRole("link", { name: "Visit live project" }).count()) !== 1) failures.push({ width, route: "/work/nexa-mobile", issue: "Verified demo link missing" });
+    await page.goto(`${baseUrl}/work/tamu-kenya`, { waitUntil: "domcontentloaded" });
+    if ((await page.getByRole("link", { name: "Visit live project" }).count()) !== 1) failures.push({ width, route: "/work/tamu-kenya", issue: "Verified demo link missing" });
   }
 
   await context.close();

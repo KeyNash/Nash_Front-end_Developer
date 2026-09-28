@@ -1,6 +1,6 @@
 # KeyNash portfolio verification
 
-Date: 25 September 2026
+Date: 26 September 2026
 
 ## Code gates
 
@@ -29,6 +29,6 @@ The home, work archive, JuaDuka case study, about, and contact routes were check
 ## Known release dependencies
 
 - A verified Resend sender and production environment variables are still required for live inquiry delivery.
-- Nexa and Tamu need current full-interface screenshots before their eventual public deployment milestone.
+- Nexa and Tamu are publicly deployed as frontend demonstrations. Updated full-interface portfolio screenshots remain pending.
 - JuaDuka needs current device screenshots and its documented Day 21 physical validation gates.
 - Vercel preview verification and Lighthouse scoring remain pending deployment approval.

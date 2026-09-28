@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
 import { featuredProjects, projects } from "@/content/projects";
-import { profile } from "@/content/profile";
+import { developerProfiles, profile } from "@/content/profile";
 
 export default function HomePage() {
   return (
@@ -16,6 +16,9 @@ export default function HomePage() {
           <div className="button-row">
             <Link className="button button-primary" href="/work">Explore the work <ArrowRight size={18} aria-hidden="true" /></Link>
             <Link className="button button-secondary" href="/contact">Start a conversation</Link>
+          </div>
+          <div className="developer-links" aria-label="Developer profiles">
+            {developerProfiles.map((item) => <a key={item.label} href={item.href} target="_blank" rel="me noreferrer">{item.label}</a>)}
           </div>
         </div>
         <div className="hero-panel" aria-label="Current focus">

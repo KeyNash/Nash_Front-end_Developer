@@ -81,6 +81,9 @@ p { color: var(--muted); }
 .button:hover { transform: translateY(-2px); }
 .button-primary { background: var(--ink); color: var(--paper); }
 .button-secondary { background: transparent; color: var(--ink); }
+.developer-links { display: flex; flex-wrap: wrap; gap: .55rem 1.1rem; margin-top: 1.25rem; }
+.developer-links a { color: var(--muted); font-size: .78rem; font-weight: 800; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .3em; }
+.developer-links a:hover { color: var(--ink); }
 .hero-panel { align-self: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); padding: 1.5rem; box-shadow: var(--shadow); }
 .hero-panel strong { display: block; font-family: var(--font-display); font-size: 1.55rem; }
 .text-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--ink); font-size: .88rem; font-weight: 800; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .3em; }
@@ -166,6 +169,13 @@ figcaption { margin-top: .75rem; color: var(--muted); font-size: .78rem; }
 .about-hero h1 { max-width: 14ch; }
 .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 60rem; margin-left: auto; }
 .about-intro p { font-size: 1.1rem; }
+.about-workspace { padding-bottom: clamp(5rem, 10vw, 9rem); }
+.workspace-photo { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--dark); box-shadow: var(--shadow); }
+.workspace-photo::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: linear-gradient(115deg, rgba(4, 10, 11, .05), transparent 55%, rgba(4, 10, 11, .24)); }
+.workspace-photo img { object-fit: cover; object-position: 42% 66%; filter: saturate(.9) contrast(1.04); }
+.workspace-caption { display: grid; grid-template-columns: .65fr 1.35fr; gap: 2rem; align-items: start; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.workspace-caption .eyebrow, .workspace-caption p { margin: 0; }
+.workspace-caption p { max-width: 38rem; font-size: .9rem; }
 .approach-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 5rem; }
 .approach-list { display: grid; gap: 2rem; }
 .approach-list article { padding-bottom: 2rem; border-bottom: 1px solid #354143; }
@@ -212,6 +222,9 @@ figcaption { margin-top: .75rem; color: var(--muted); font-size: .78rem; }
   .nav-links a { padding: .8rem; }
   .hero { min-height: auto; grid-template-columns: 1fr; padding-top: 9rem; gap: 3rem; }
   .hero h1 { font-size: clamp(3.1rem, 14vw, 5.4rem); }
+  .workspace-photo { aspect-ratio: 4 / 5; }
+  .workspace-photo img { object-position: 44% 58%; }
+  .workspace-caption { grid-template-columns: 1fr; gap: .5rem; }
   .principles-grid { grid-template-columns: 1fr; }
   .principle { padding-block: .5rem; }
   .project-grid, .evidence-grid, .case-title-grid, .case-body, .about-intro, .approach-grid, .capabilities-grid, .contact-layout { grid-template-columns: 1fr; }

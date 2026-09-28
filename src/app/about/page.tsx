@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import workspacePhoto from "@/assets/nash-workspace.jpg";
 import { profile } from "@/content/profile";
 
 export const metadata: Metadata = { title: "About", description: "How KeyNash approaches product, interface and full-stack development.", alternates: { canonical: "/about" } };
@@ -12,6 +14,23 @@ export default function AboutPage() {
         <p className="eyebrow">About KeyNash</p>
         <h1>I care about the part where an interface becomes a dependable product.</h1>
         <div className="about-intro"><p>{profile.introduction}</p><p>I work across product thinking, front-end systems, APIs and mobile workflows. The common thread is clarity: people should understand what a product does, what it does not do yet, and what happens when something goes wrong.</p></div>
+      </section>
+      <section className="about-workspace shell" aria-label="Inside the process">
+        <figure className="workspace-figure">
+          <div className="workspace-photo">
+            <Image
+              src={workspacePhoto}
+              alt="Flutter code and project planning open across a two-screen development workspace"
+              fill
+              sizes="(max-width: 800px) calc(100vw - 1.25rem), 1180px"
+              placeholder="blur"
+            />
+          </div>
+          <figcaption className="workspace-caption">
+            <span className="eyebrow">Inside the process</span>
+            <p>A working session across Flutter code, product research and project planning.</p>
+          </figcaption>
+        </figure>
       </section>
       <section className="band-dark section">
         <div className="shell approach-grid">
